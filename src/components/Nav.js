@@ -1,10 +1,24 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
-import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth'
 
 const Nav = () => {
+  const [show, setShow] = useState(false);
 
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const handleScroll = () => {
+    if (window.scrollY > 50) {
+      setShow(true);
+    } else {
+      setShow(false);
+    }
+  };
+  
   return (
     <NavWrapper show={show}>
       <Logo>
