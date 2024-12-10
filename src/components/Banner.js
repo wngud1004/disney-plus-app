@@ -8,6 +8,7 @@ import "./Banner.css";
 const Banner = () => {
 
   const [movie, setMovie] = useState([]);
+  const [isClicked, setIsClicked] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -29,37 +30,67 @@ const Banner = () => {
     setMovie(movieDetail);
   }
 
-  // 100보다 큰 설명일시 ...으로 대체
+  // 100 글자보다 긴 문장이면 자르고 ...
   const truncate = (str, n) => {
     return str?.length > n ? str.substring(0, n) + "..." : str;
   }
 
-  return (
-    <header
-      className='banner'
-      style={{
-        backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie.backdrop_path}")`,
-        backgroundPosition: "top center",
-        backgroundSize: "cover"
-      }}
-    >
-      <div style={{ fontSize: 10 }} className='banner__contents'>
-        <h1 className='banner__title'>
-          {movie.title || movie.name || movie.original_name}
-        </h1>
 
+  if (isClicked) {
+    return (
+      <>
+        <Container>
+          <HomeContainer>
+            <Iframe
+              src={`https://www.youtube.com/embed/${movie.videos.results[0].key}?controls=0&autoplay=1&loop=1&mute=1&playlist=${movie.videos.results[0].key}`}
+              width="640"
+              height="360"
+              frameborder="0"
+              allow="autoplay; fullscreen"
+            ></Iframe>
+          </HomeContainer>
+        </Container>
+        <button onClick={() => setIsClicked(false)}>X</button>
+      </>
+    )
+  } else {
+    return (
+      <header
+        className='banner'
+        style={{
+          backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie.backdrop_path}")`,
+          backgroundPosition: "top center",
+          backgroundSize: "cover"
+        }}
+      >
+        <div style={{ fontSize: 10 }} className='banner__contents'>
+          <h1 className='banner__title'>
+            {movie.title || movie.name || movie.original_name}
+          </h1>
 
-        <p className='banner__description'>
-          {truncate(movie.overview, 100)}
-        </p>
-      </div>
-      <div className='banner--fadeBottom' />
-    </header>
-  )
+          <div className='banner__buttons'>
+            {movie?.videos?.results[0]?.key &&
+              <button
+                className='banner__button play'
+                onClick={() => setIsClicked(true)}
+              >
+                Play
+              </button>
+            }
+
+          </div>
+          <p className='banner__description'>
+            {truncate(movie.overview, 100)}
+          </p>
+        </div>
+        <div className='banner--fadeBottom' />
+      </header>
+    )
+  }
 
 }
 
-export default Banner;
+export default Banner
 
 
 const Container = styled.div`
