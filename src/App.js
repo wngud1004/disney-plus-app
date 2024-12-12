@@ -25,6 +25,7 @@ function App() {
             {/* 중첩 라우트 */}
             <Route path="main" element={<MainPage />} />
             <Route path="search" element={<SearchPage />} />
+            <Route path=":movieId" element={<DetailPage />} />
           </Route>
         </Routes>
       </div>
