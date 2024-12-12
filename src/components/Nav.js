@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 
 const Nav = () => {
@@ -37,7 +37,7 @@ const Nav = () => {
           onClick={() => (window.location.href = "/")}
         />
       </Logo>
-      {pathname === "/" ? (<Login></Login>) : 
+      {pathname === "/" ? (<Login>LOGIN</Login>) : 
         <Input
           value={searchValue}
           onChange={handleChange}
