@@ -3,6 +3,7 @@ import './App.css';
 import Nav from './components/Nav';
 import MainPage from './pages/MainPage';
 import SearchPage from './pages/SearchPage';
+import DetailPage from './pages/DetailPage';
 
 // Layout 컴포넌트
 const Layout = () => {
