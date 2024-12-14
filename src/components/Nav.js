@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
-
+import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth'
+import { auth } from '../firebase'
 const Nav = () => {
+
+  const initialUserData = localStorage.getItem('userData') ? 
+  JSON.parse(localStorage.getItem('userData')) : {};
+  
   const [show, setShow] = useState(false);
   const { pathname } = useLocation();
   const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
+  const provider = new GoogleAuthProvider();
+  const [userData, setUserData] = useState(initialUserData);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -27,6 +34,30 @@ const Nav = () => {
     setSearchValue(e.target.value);
     navigate(`/search?q=${e.target.value}`);
   };
+
+  const handleAuth = () => {
+    signInWithPopup(auth, provider)
+      .then(result => {
+        setUserData(result.user);
+        localStorage.setItem("userData", JSON.stringify(result.user));
+        navigate('/main'); // 로그인 후 main 페이지로 이동
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        setUserData({});
+        localStorage.removeItem('userData'); // 로그아웃 시 로컬 스토리지에서 사용자 정보 삭제
+        navigate(`/`); // 로그아웃 후 로그인 페이지로 이동
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   
   return (
     <NavWrapper show={show}>
@@ -37,7 +68,7 @@ const Nav = () => {
           onClick={() => (window.location.href = "/")}
         />
       </Logo>
-      {pathname === "/" ? (<Login>LOGIN</Login>) : 
+      {pathname === "/" ? (<Login onClick={handleAuth}>LOGIN</Login>) : 
         <Input
           value={searchValue}
           onChange={handleChange}
