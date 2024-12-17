@@ -18,8 +18,9 @@ const Layout = () => {
 
 // App 컴포넌트
 function App() {
+  const basename = process.env.NODE_ENV === 'production' ? '/disney-plus-app' : '/';
   return (
-    <BrowserRouter basename="/disney-plus-app">
+    <BrowserRouter basename={basename}>
       <div className="app">
         <Routes>
           {/* 기본 라우트 설정 */}
