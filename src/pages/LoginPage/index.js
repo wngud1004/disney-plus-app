@@ -6,26 +6,27 @@ const LoginPage = () => {
     <Container>
       <Content>
         <Center>
-          <LogoOne src="images/cta-logo-one.svg" alt="logo-one" />
+          <LogoOne src={`${process.env.PUBLIC_URL}/images/cta-logo-one.svg`} alt="logo-one" />
           <SignUpLink>지금 가입</SignUpLink>
           <Description>
             영화에 대한 프리미어 액세스를 얻으십시오.
             디즈니 플러스 가격은 다음 주부터 1000원 인상됩니다.
           </Description>
-          <LogoTwo src="images/cta-logo-two.png" alt="logo-two" />
+          <LogoTwo src={`${process.env.PUBLIC_URL}/images/cta-logo-two.png`} alt="logo-two" />
         </Center>
         <BgImage />
       </Content>
     </Container>
-  )
-}
+  );
+};
 
-export default LoginPage
+
+export default LoginPage;
 
 const BgImage = styled.div`
   height: 100%;
   background-position: top;
-  background-image: url("images/login-background.jpg");
+  background-image: url("${process.env.PUBLIC_URL}/images/login-background.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   position: absolute;
