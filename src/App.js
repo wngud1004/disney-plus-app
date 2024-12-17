@@ -19,7 +19,7 @@ const Layout = () => {
 // App 컴포넌트
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/disney-plus-app">
       <div className="app">
         <Routes>
           {/* 기본 라우트 설정 */}
