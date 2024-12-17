@@ -2,42 +2,53 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Category = () => {
+  // 이미지와 비디오 데이터를 배열로 설정
+  const categories = [
+    {
+      id: 1,
+      imgSrc: `${process.env.PUBLIC_URL}/images/viewers-disney.png`,
+      videoSrc: `${process.env.PUBLIC_URL}/videos/disney.mp4`,
+      alt: "disney"
+    },
+    {
+      id: 2,
+      imgSrc: `${process.env.PUBLIC_URL}/images/viewers-marvel.png`,
+      videoSrc: `${process.env.PUBLIC_URL}/videos/marvel.mp4`,
+      alt: "marvel"
+    },
+    {
+      id: 3,
+      imgSrc: `${process.env.PUBLIC_URL}/images/viewers-pixar.png`,
+      videoSrc: `${process.env.PUBLIC_URL}/videos/pixar.mp4`,
+      alt: "pixar"
+    },
+    {
+      id: 4,
+      imgSrc: `${process.env.PUBLIC_URL}/images/viewers-starwars.png`,
+      videoSrc: `${process.env.PUBLIC_URL}/videos/star-wars.mp4`,
+      alt: "starwars"
+    },
+    {
+      id: 5,
+      imgSrc: `${process.env.PUBLIC_URL}/images/viewers-national.png`,
+      videoSrc: `${process.env.PUBLIC_URL}/videos/national-geographic.mp4`,
+      alt: "national"
+    },
+  ];
+
   return (
     <Container>
-      <Wrap>
-        <img src="/images/viewers-disney.png" alt="disney" />
-        <video autoPlay loop muted>
-          <source src="/videos/disney.mp4" type='video/mp4' />
-        </video>
-      </Wrap>
-      <Wrap>
-        <img src="/images/viewers-marvel.png" alt="marvel" />
-        <video autoPlay loop muted>
-          <source src="/videos/marvel.mp4" type='video/mp4' />
-        </video>
-      </Wrap>
-      <Wrap>
-        <img src="/images/viewers-pixar.png" alt="pixar" />
-        <video autoPlay loop muted>
-          <source src="/videos/pixar.mp4" type='video/mp4' />
-        </video>
-      </Wrap>
-      <Wrap>
-        <img src="/images/viewers-starwars.png" alt="starwars" />
-        <video autoPlay loop muted>
-          <source src="/videos/star-wars.mp4" type='video/mp4' />
-        </video>
-      </Wrap>
-      <Wrap>
-        <img src="/images/viewers-national.png" alt="national" />
-        <video autoPlay loop muted>
-          <source src="/videos/national-geographic.mp4" type='video/mp4' />
-        </video>
-      </Wrap>
-
+      {categories.map((category) => (
+        <Wrap key={category.id}>
+          <img src={category.imgSrc} alt={category.alt} />
+          <video autoPlay loop muted>
+            <source src={category.videoSrc} type="video/mp4" />
+          </video>
+        </Wrap>
+      ))}
     </Container>
-  )
-}
+  );
+};
 
 export default Category
 
