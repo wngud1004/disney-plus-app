@@ -69,17 +69,66 @@ const Nav = () => {
         />
       </Logo>
       {pathname === "/" ? (<Login onClick={handleAuth}>LOGIN</Login>) : 
+      <>
         <Input
           value={searchValue}
           onChange={handleChange}
           className='nav__input' 
           type='text' 
-          placeholder='검색해주세요'/>}
+          placeholder='검색해주세요'/>
+
+          <SignOut>
+            <UserImg src={userData.photoURL} alt={userData.displayName}/>
+            <DropDown>
+              <span onClick={handleSignOut}>Sign Out</span>
+            </DropDown>
+          </SignOut>
+      </>
+      }
     </NavWrapper>
   );
 };
 
 export default Nav;
+
+const DropDown = styled.div`
+  position: absolute;
+  top: 48px;
+  right: 0px;
+  background: rgb(19, 19, 19);
+  border: 1px solid rgba(151, 151, 151, 0.34);
+  border-radius:  4px;
+  box-shadow: rgb(0 0 0 /50%) 0px 0px 18px 0px;
+  padding: 10px;
+  font-size: 14px;
+  letter-spacing: 3px;
+  width: 100%;
+  opacity: 0;
+`;
+
+const SignOut = styled.div`
+  position: relative;
+  height: 48px;
+  width: 48px;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    ${DropDown} {
+      opacity: 1;
+      transition-duration: 1s;
+    }
+  }
+`;
+
+const UserImg = styled.img`
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+`;
+
 
 const Login = styled.a`
   background-color: rgba(0, 0, 0, 0.6);
