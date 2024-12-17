@@ -16,6 +16,26 @@ const Nav = () => {
   const [userData, setUserData] = useState(initialUserData);
 
   useEffect(() => {
+    // 로그인 상태에 따라 이동 처리
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // 로그인 상태일 때 main 페이지로 이동
+        if (pathname === "/") {
+          navigate("/main");
+        }
+      } else {
+        // 로그아웃 상태일 때 로그인 페이지로 이동
+        if (pathname !== "/") {
+          navigate("/");
+        }
+      }
+    });
+
+    // cleanup
+    return () => unsubscribe();
+  }, [auth, navigate, pathname]);
+
+  useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
