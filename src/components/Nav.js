@@ -84,8 +84,8 @@ const Nav = () => {
       <Logo>
         <img
           alt="Disney Plus Logo"
-          src="images/logo.svg"
-          onClick={() => (window.location.href = "/")}
+          src={`${process.env.PUBLIC_URL}/images/logo.svg`}
+          onClick={() => (window.location.href = "/disney-plus-app")}
         />
       </Logo>
       {pathname === "/" ? (<Login onClick={handleAuth}>LOGIN</Login>) : 
@@ -117,14 +117,16 @@ const DropDown = styled.div`
   right: 0px;
   background: rgb(19, 19, 19);
   border: 1px solid rgba(151, 151, 151, 0.34);
-  border-radius:  4px;
-  box-shadow: rgb(0 0 0 /50%) 0px 0px 18px 0px;
-  padding: 10px;
+  border-radius: 4px;
+  box-shadow: rgb(0 0 0 / 50%) 0px 0px 18px 0px;
+  padding: 8px 12px; /* 패딩 조정 */
   font-size: 14px;
-  letter-spacing: 3px;
-  width: 100%;
+  letter-spacing: 1px; /* 간격을 줄임 */
+  white-space: nowrap; /* 한 줄로 유지 */
   opacity: 0;
+  text-align: center; /* 텍스트 중앙 정렬 */
 `;
+
 
 const SignOut = styled.div`
   position: relative;
@@ -182,12 +184,15 @@ const NavWrapper = styled.nav`
   left: 0;
   right: 0;
   height: 70px;
-  background-color: ${props => props.show ? "#090b13" : "transparent"};
+  background-color: ${props => (props.show ? "#090b13" : "transparent")};
+  visibility: ${props => (props.show ? "visible" : "visible")};
+  transform: ${props => (props.show ? "translateY(-100%)" : "translateY(0)")};
+  transition: transform 0.5s ease-in-out, background-color 0.5s ease-in-out;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 36px;
-  letter-spacing: 16px;
+  letter-spacing: 2px;
   z-index: 3;
 `;
 

@@ -107,27 +107,32 @@
 
 
 .swiper-pagination {
-    text-align: right !important;
+    position: absolute !important; /* 위치를 절대값으로 설정 */
+    left: 50% !important; /* 수평 중앙 정렬 */
+    transform: translateX(-50%) !important; /* 정확히 중앙으로 이동 */
+    z-index: 10 !important; /* 다른 요소 위에 표시 */
+    text-align: center !important; /* 가운데 정렬 */
 }
 
 .swiper-pagination-bullet {
     background: gray !important;
-    opacity: 1 !important;
+    opacity: 0.7 !important;
 }
 
 .swiper-pagination-bullet-active {
     background-color: white !important;
+    opacity: 1 !important;
 }
 
-.swiper-button-prev {
-    color: white !important;
-}
 
+.swiper-button-prev,
 .swiper-button-next {
-    color: white !important;
+    color: white !important; /* 버튼 색상 */
+    z-index: 10 !important; /* 다른 요소 위에 표시 */
 }
 
-.swiper-button-next::after, .swiper-button-prev::after {
-    font-size: 1.3rem !important;
+.swiper-button-next::after, 
+.swiper-button-prev::after {
+    font-size: 1.5rem !important; /* 버튼 크기 조정 */
     font-weight: 600 !important;
 }
