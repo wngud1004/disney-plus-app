@@ -100,6 +100,7 @@ const Nav = () => {
           <SignOut>
             <UserImg src={userData.photoURL} alt={userData.displayName}/>
             <DropDown>
+              <span onClick={() => navigate('/favorites')}>즐겨찾기</span>
               <span onClick={handleSignOut}>Sign Out</span>
             </DropDown>
           </SignOut>
@@ -119,14 +120,26 @@ const DropDown = styled.div`
   border: 1px solid rgba(151, 151, 151, 0.34);
   border-radius: 4px;
   box-shadow: rgb(0 0 0 / 50%) 0px 0px 18px 0px;
-  padding: 8px 12px; /* 패딩 조정 */
+  padding: 8px 0; /* 위아래 패딩 조정 */
   font-size: 14px;
-  letter-spacing: 1px; /* 간격을 줄임 */
-  white-space: nowrap; /* 한 줄로 유지 */
+  letter-spacing: 1px;
+  white-space: nowrap;
   opacity: 0;
-  text-align: center; /* 텍스트 중앙 정렬 */
-`;
+  transition: opacity 0.3s ease-in-out;
+  text-align: center;
 
+  /* 드롭다운 항목 스타일 */
+  span {
+    display: block; /* 항목을 세로로 나열 */
+    padding: 8px 16px;
+    cursor: pointer;
+    color: white;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+`;
 
 const SignOut = styled.div`
   position: relative;
@@ -140,7 +153,6 @@ const SignOut = styled.div`
   &:hover {
     ${DropDown} {
       opacity: 1;
-      transition-duration: 1s;
     }
   }
 `;

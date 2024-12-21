@@ -5,6 +5,7 @@ import MainPage from './pages/MainPage';
 import LoginPage from './pages/LoginPage';
 import SearchPage from './pages/SearchPage';
 import DetailPage from './pages/DetailPage';
+import FavoritesPage from './pages/FavoritesPage';
 
 // Layout 컴포넌트
 const Layout = () => {
@@ -30,6 +31,7 @@ function App() {
             <Route path="main" element={<MainPage />} />
             <Route path="search" element={<SearchPage />} />
             <Route path=":movieId" element={<DetailPage />} />
+            <Route path="favorites" element={<FavoritesPage />} />
           </Route>
         </Routes>
       </div>

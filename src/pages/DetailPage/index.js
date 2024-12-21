@@ -40,7 +40,7 @@ const DetailPage = () => {
         src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
         alt="img"
       />
-            <button onClick={handleFavorite}>
+      <button onClick={handleFavorite}>
         {favorites.some((fav) => fav.id === movie.id)
           ? '즐겨찾기 제거'
           : '즐겨찾기 추가'}
