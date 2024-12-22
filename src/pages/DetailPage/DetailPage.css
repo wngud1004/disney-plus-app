@@ -1,0 +1,56 @@
+.detail-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 100px 20px 20px; /* 상단 여백 추가 */
+    color: white;
+  }
+  
+  .detail__poster {
+    width: 100%;
+    max-width: 800px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .detail__info {
+    text-align: center;
+  }
+  
+  .detail__title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .detail__tagline {
+    font-size: 1.2rem;
+    font-style: italic;
+    margin-bottom: 10px;
+    color: gray;
+  }
+  
+  .detail__overview {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+  
+  .detail__details {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+  
+  .detail__favorite-btn {
+    background-color: #e50914;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .detail__favorite-btn:hover {
+    background-color: #f40612;
+  }
+
+  
