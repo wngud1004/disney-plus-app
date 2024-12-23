@@ -104,3 +104,19 @@
         overflow-y: scroll !important;
     }
 }
+
+.modal__favorite-btn {
+    background-color: #e50914;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .modal__favorite-btn:hover {
+    background-color: #f40612;
+  }
+  
