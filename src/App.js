@@ -21,7 +21,6 @@ const Layout = () => {
 function App() {
   const basename = process.env.NODE_ENV === 'production' ? '/disney-plus-app' : '/';
   return (
-    <BrowserRouter basename="/disney-plus-app">
       <div className="app">
         <Routes>
           {/* 기본 라우트 설정 */}
@@ -35,7 +34,6 @@ function App() {
           </Route>
         </Routes>
       </div>
-    </BrowserRouter>
   );
 }
 

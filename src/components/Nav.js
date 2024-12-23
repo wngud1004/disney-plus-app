@@ -3,28 +3,45 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth'
 import { auth } from '../firebase'
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser, removeUser } from '../store/userSlice';
+
 const Nav = () => {
 
+  /*
   const initialUserData = localStorage.getItem('userData') ? 
   JSON.parse(localStorage.getItem('userData')) : {};
+  */
   
   const [show, setShow] = useState(false);
   const { pathname } = useLocation();
   const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
+  // const [userData, setUserData] = useState(initialUserData);
+
   const provider = new GoogleAuthProvider();
-  const [userData, setUserData] = useState(initialUserData);
+
+  const dispatch = useDispatch();
+  const userData = useSelector((state) => state.user);
 
   useEffect(() => {
     // 로그인 상태에 따라 이동 처리
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         // 로그인 상태일 때 main 페이지로 이동
+        dispatch(setUser({
+          id: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL
+        }));
+
         if (pathname === "/") {
           navigate("/main");
         }
       } else {
         // 로그아웃 상태일 때 로그인 페이지로 이동
+        dispatch(removeUser());
         if (pathname !== "/") {
           navigate("/");
         }
@@ -33,7 +50,7 @@ const Nav = () => {
 
     // cleanup
     return () => unsubscribe();
-  }, [auth, navigate, pathname]);
+  }, [dispatch, navigate, pathname]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -43,11 +60,7 @@ const Nav = () => {
   }, []);
 
   const handleScroll = () => {
-    if (window.scrollY > 50) {
-      setShow(true);
-    } else {
-      setShow(false);
-    }
+    setShow(window.scrollY > 50);
   };
 
   const handleChange = (e) => {
@@ -58,24 +71,35 @@ const Nav = () => {
   const handleAuth = () => {
     signInWithPopup(auth, provider)
       .then(result => {
-        setUserData(result.user);
-        localStorage.setItem("userData", JSON.stringify(result.user));
+        // setUserData(result.user);
+        const user = result.user;
+        dispatch(setUser({
+          id: result.user.uid,
+          email: result.user.email,
+          displayName: result.user.displayName,
+          photoURL: result.user.photoURL
+        }));
+
+        // localStorage.setItem("userData", JSON.stringify(result.user));
         navigate('/main'); // 로그인 후 main 페이지로 이동
       })
       .catch(error => {
-        console.log(error);
+        console.error("Error signing in:", error);
+        alert(error.message);
       });
   };
 
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
-        setUserData({});
-        localStorage.removeItem('userData'); // 로그아웃 시 로컬 스토리지에서 사용자 정보 삭제
+        // setUserData({});
+        // localStorage.removeItem('userData'); // 로그아웃 시 로컬 스토리지에서 사용자 정보 삭제
+        dispatch(removeUser());
         navigate(`/`); // 로그아웃 후 로그인 페이지로 이동
       })
       .catch((error) => {
         console.log(error);
+        alert(error.message)
       });
   };
   
@@ -109,7 +133,6 @@ const Nav = () => {
     </NavWrapper>
   );
 };
-
 export default Nav;
 
 const DropDown = styled.div`
