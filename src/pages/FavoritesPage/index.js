@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './FavoritesPage.css'; // CSS 파일 추가
 
 const FavoritesPage = () => {
   const [favorites] = useState(
@@ -8,8 +9,8 @@ const FavoritesPage = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="favorites-container">
-      <h2>즐겨찾기</h2>
+    <div className="favorites-container">
+      <h2 className="favorites-title">즐겨찾기</h2>
       {favorites.length > 0 ? (
         <div className="favorites-grid">
           {favorites.map((movie) => (
@@ -21,15 +22,16 @@ const FavoritesPage = () => {
               <img
                 src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
                 alt={movie.title}
+                className="movie-poster"
               />
-              <p>{movie.title}</p>
+              <p className="movie-title">{movie.title}</p>
             </div>
           ))}
         </div>
       ) : (
-        <p>즐겨찾기한 영화가 없습니다.</p>
+        <p className="no-favorites">즐겨찾기한 영화가 없습니다.</p>
       )}
-    </section>
+    </div>
   );
 };
 

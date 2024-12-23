@@ -1,0 +1,42 @@
+.favorites-container {
+    padding: 100px 20px 20px; /* 상단 여백 추가 */
+    color: white;
+  }
+  
+  .favorites-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* 유연한 그리드 */
+    gap: 20px;
+  }
+  
+  .movie {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .movie-poster {
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  .movie-title {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .movie:hover {
+    transform: scale(1.05); /* 호버 시 확대 효과 */
+  }
+  
+  .no-favorites {
+    text-align: center;
+    font-size: 1.2rem;
+    color: gray;
+  }
+  
