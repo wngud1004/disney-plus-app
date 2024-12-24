@@ -121,13 +121,13 @@ const Nav = () => {
           type='text' 
           placeholder='검색해주세요'/>
 
-          <SignOut>
-            <UserImg src={userData.photoURL} alt={userData.displayName}/>
-            <DropDown>
-              <span onClick={() => navigate('/favorites')}>즐겨찾기</span>
-              <span onClick={handleSignOut}>Sign Out</span>
-            </DropDown>
-          </SignOut>
+        <SignOut>
+          <UserImg src={userData.photoURL} alt={userData.displayName}/>
+          <DropDown>
+            <span onClick={() => navigate('/favorites')}>즐겨찾기</span>
+            <span onClick={handleSignOut}>Sign Out</span>
+          </DropDown>
+        </SignOut>
       </>
       }
     </NavWrapper>

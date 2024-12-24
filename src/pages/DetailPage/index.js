@@ -1,38 +1,57 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { db } from '../../firebase';
+import { collection, addDoc, deleteDoc, getDocs, doc } from 'firebase/firestore';
+import { useSelector } from 'react-redux';
 import axios from '../../api/axios';
 import './DetailPage.css';
 
 const DetailPage = () => {
-  let { movieId } = useParams();
+  const { movieId } = useParams();
   const [movie, setMovie] = useState({});
-  const [favorites, setFavorites] = useState(
-    JSON.parse(localStorage.getItem('favorites')) || []
-  );
+  const [isFavorite, setIsFavorite] = useState(false);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    async function fetchData() {
-      const response = await axios.get(
-        `/movie/${movieId}`
-      )
-      // console.log('response',response);
+    const fetchData = async () => {
+      const response = await axios.get(`/movie/${movieId}`);
       setMovie(response.data);
-    }
+
+      if (!user.id) return;
+      const favoritesRef = collection(db, 'favorites', user.id, 'movies'); // 하위 컬렉션 사용
+      const snapshot = await getDocs(favoritesRef);
+      const favoriteIds = snapshot.docs.map((doc) => doc.data().id);
+      setIsFavorite(favoriteIds.includes(response.data.id));
+    };
+
     fetchData();
-  }, [movieId])
-  
-  const handleFavorite = () => {
-    let updatedFavorites = [...favorites];
-    if (updatedFavorites.some((fav) => fav.id === movie.id)) {
-      updatedFavorites = updatedFavorites.filter((fav) => fav.id !== movie.id);
-    } else {
-      updatedFavorites.push(movie);
+  }, [movieId, user.id]);
+
+  const handleFavorite = async () => {
+    if (!user.id) {
+      alert('로그인이 필요합니다.');
+      return;
     }
-    setFavorites(updatedFavorites);
-    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+
+    const favoritesRef = collection(db, 'favorites', user.id, 'movies'); // 하위 컬렉션 사용
+    if (isFavorite) {
+      const snapshot = await getDocs(favoritesRef);
+      const favoriteDoc = snapshot.docs.find((doc) => doc.data().id === movie.id);
+      if (favoriteDoc) {
+        await deleteDoc(doc(db, 'favorites', user.id, 'movies', favoriteDoc.id));
+      }
+    } else {
+      await addDoc(favoritesRef, {
+        id: movie.id,
+        title: movie.title,
+        backdrop_path: movie.backdrop_path,
+      });
+    }
+
+    setIsFavorite(!isFavorite);
   };
 
-  if(!movie) return null;
+  if (!movie) return null;
 
   return (
     <div className="detail-container">
@@ -49,13 +68,11 @@ const DetailPage = () => {
           개봉일: {movie.release_date} | 평점: {movie.vote_average} / 10
         </p>
         <button onClick={handleFavorite} className="detail__favorite-btn">
-          {favorites.some((fav) => fav.id === movie.id)
-            ? '즐겨찾기 제거'
-            : '즐겨찾기 추가'}
+          {isFavorite ? '즐겨찾기 제거' : '즐겨찾기 추가'}
         </button>
       </div>
     </div>
   );
 };
 
-export default DetailPage
+export default DetailPage;

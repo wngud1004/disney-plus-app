@@ -1,4 +1,4 @@
-import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Nav from './components/Nav';
 import MainPage from './pages/MainPage';
@@ -19,7 +19,6 @@ const Layout = () => {
 
 // App 컴포넌트
 function App() {
-  const basename = process.env.NODE_ENV === 'production' ? '/disney-plus-app' : '/';
   return (
       <div className="app">
         <Routes>
