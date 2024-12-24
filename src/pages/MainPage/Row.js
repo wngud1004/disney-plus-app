@@ -1,7 +1,7 @@
-import axios from '../api/axios';
+import axios from '../../api/axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import "./Row.css";
-import MovieModal from './MovieModal';
+import MovieModal from '../../components/MovieModal';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules'; // 수정된 부분

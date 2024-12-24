@@ -1,8 +1,8 @@
 import React from 'react'
-import Banner from '../../components/Banner'
-import Category from '../../components/Category'
+import Banner from './Banner'
+import Category from './Category'
 import Nav from '../../components/Nav'
-import Row from '../../components/Row'
+import Row from './Row'
 import styled from 'styled-components'
 import requests from '../../api/request'
 
