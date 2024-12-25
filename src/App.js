@@ -12,7 +12,7 @@ const Layout = () => {
   return (
     <div>
       <Nav />
-      <Outlet /> {/* 중첩 라우트의 내용이 여기에 렌더링됩니다 */}
+      <Outlet />
     </div>
   );
 };
